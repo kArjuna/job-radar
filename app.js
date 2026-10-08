@@ -1,6 +1,15 @@
 const categories = ["AI / ML Engineer", "Data Engineering", "Data Analyst", "Data Scientist", "Software Developer", "Software Engineer"];
+const linkedinQueries = {
+  "AI / ML Engineer": "machine learning engineer OR AI engineer OR ML engineer",
+  "Data Engineering": "data engineer OR analytics engineer",
+  "Data Analyst": "data analyst OR business intelligence analyst",
+  "Data Scientist": "data scientist OR applied scientist",
+  "Software Developer": "software developer OR application developer",
+  "Software Engineer": "software engineer OR backend engineer OR frontend engineer",
+};
 const jobList = document.querySelector("#job-list");
 const sourceGrid = document.querySelector("#source-grid");
+const linkedinList = document.querySelector("#linkedin-list");
 let jobs = [];
 let companies = [];
 
@@ -49,16 +58,39 @@ function renderSources() {
   </a>`).join("");
 }
 
+function linkedinUrl(category) {
+  const query = new URLSearchParams({
+    keywords: linkedinQueries[category],
+    location: "United States",
+    geoId: "103644278",
+  });
+  const age = document.querySelector("#linkedin-age").value;
+  const experience = document.querySelector("#linkedin-experience").value;
+  if (age) query.set("f_TPR", `r${Number(age) * 3600}`);
+  if (experience) query.set("f_E", experience);
+  return `https://www.linkedin.com/jobs/search/?${query}`;
+}
+
+function renderLinkedInSearches() {
+  const selectedCategory = document.querySelector("#linkedin-category").value;
+  const matches = categories.filter((category) => !selectedCategory || category === selectedCategory);
+  document.querySelector("#linkedin-result-count").textContent = `${matches.length} ${matches.length === 1 ? "search" : "searches"}`;
+  linkedinList.innerHTML = matches.map((category) => `<article class="linkedin-result">
+    <div class="linkedin-result-info"><span class="job-category">${escapeHTML(category)}</span><h3>${escapeHTML(category)} jobs</h3><p>${escapeHTML(linkedinQueries[category])}</p></div>
+    <a class="linkedin-result-link" href="${escapeHTML(linkedinUrl(category))}" target="_blank" rel="noreferrer"><span>in</span> View jobs <span aria-hidden="true">↗</span></a>
+  </article>`).join("");
+}
+
 function showView(viewName) {
   document.querySelectorAll(".view").forEach((view) => view.classList.toggle("active", view.id === `${viewName}-view`));
   document.querySelectorAll(".nav-item").forEach((button) => button.classList.toggle("active", button.dataset.view === viewName));
-  document.querySelector("#breadcrumb-current").textContent = viewName === "jobs" ? "JOBS" : "CAREER PAGES";
+  document.querySelector("#breadcrumb-current").textContent = { jobs: "JOBS", linkedin: "LINKEDIN", sources: "CAREER PAGES" }[viewName];
   location.hash = viewName;
 }
 
 async function start() {
   document.querySelector("#category-filter").insertAdjacentHTML("beforeend", categories.map((category) => `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`).join(""));
-  document.querySelector("#linkedin-search").href = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent("AI ML engineer OR data engineer OR data analyst OR data scientist OR software engineer")}&f_TPR=r86400`;
+  document.querySelector("#linkedin-category").insertAdjacentHTML("beforeend", categories.map((category) => `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`).join(""));
   const owner = location.hostname.split(".")[0];
   const repository = location.pathname.split("/").filter(Boolean)[0] || "";
   document.querySelector("#refresh-button").href = `https://github.com/${owner}/${repository}/actions/workflows/deploy.yml`;
@@ -80,10 +112,16 @@ async function start() {
   document.querySelector("#nav-job-count").textContent = jobs.length;
   renderJobs();
   renderSources();
-  showView(location.hash === "#sources" ? "sources" : "jobs");
+  renderLinkedInSearches();
+  showView(["#jobs", "#linkedin", "#sources"].includes(location.hash) ? location.hash.slice(1) : "jobs");
 }
 
 document.querySelectorAll(".nav-item").forEach((button) => button.addEventListener("click", () => showView(button.dataset.view)));
+document.querySelector("#linkedin-search").addEventListener("click", (event) => {
+  event.preventDefault();
+  showView("linkedin");
+});
 document.querySelectorAll("#search-input, #category-filter, #segment-filter, #age-filter, #sponsorship-filter").forEach((control) => control.addEventListener(control.type === "search" ? "input" : "change", renderJobs));
 document.querySelectorAll("#source-search, #source-segment").forEach((control) => control.addEventListener(control.type === "search" ? "input" : "change", renderSources));
+document.querySelectorAll("#linkedin-category, #linkedin-age, #linkedin-experience").forEach((control) => control.addEventListener("change", renderLinkedInSearches));
 start();

@@ -19,7 +19,7 @@ The workflow scans configured Greenhouse boards and deploys the dashboard plus i
 - Roles with requirements above two years are excluded. A role must state a low experience requirement or clearly signal entry-level in its title; unspecified experience is not treated as a match.
 - Skill tags are extracted from the posting description. Visa sponsorship is shown as yes, no, or unspecified based on wording in that description, and should be confirmed with the employer.
 
-LinkedIn does not provide a public listings API for this use, so the project does not scrape LinkedIn or claim its results are verified. **Search LinkedIn** opens a recent-jobs search; confirm the experience level and details on LinkedIn. LinkedIn search filters and availability may vary by account and location.
+LinkedIn does not provide a public listings API for this use, so the project does not scrape LinkedIn or claim its results are verified. The **LinkedIn** tab creates per-role searches limited to the United States, with selectable posting age and LinkedIn experience level; searches open on LinkedIn. These seniority levels are not exact years-of-experience limits, so confirm each listing's requirements. Search filters and availability may vary by account.
 
 ## Run locally
 

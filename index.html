@@ -17,8 +17,9 @@
         <a class="brand" href="#jobs" aria-label="Job Radar home"><span class="brand-mark">J<span>R</span></span><span>job radar</span></a>
         <div class="nav-label">Workspace</div>
         <nav class="nav" aria-label="Main navigation">
-          <button class="nav-item active" data-view="jobs"><span class="nav-icon">⌕</span>Jobs <span class="nav-count" id="nav-job-count">0</span></button>
-          <button class="nav-item" data-view="sources"><span class="nav-icon">↗</span>Career pages</button>
+          <button class="nav-item active" data-view="jobs"><span class="nav-icon">⌕</span><span class="nav-text">Jobs</span><span class="nav-count" id="nav-job-count">0</span></button>
+          <button class="nav-item" data-view="linkedin"><span class="nav-icon linkedin-nav-icon">in</span><span class="nav-text">LinkedIn</span></button>
+          <button class="nav-item" data-view="sources"><span class="nav-icon">↗</span><span class="nav-text">Career pages</span></button>
         </nav>
         <div class="sidebar-bottom">
           <span class="live-dot"></span><span>Daily scan enabled</span>
@@ -38,7 +39,7 @@
         <section class="view active" id="jobs-view">
           <div class="page-heading">
             <div><p class="eyebrow">OPPORTUNITY TRACKER <span class="heading-rule"></span> ENTRY LEVEL TO 3 YEARS</p><h1>Find your next<br><em>good thing.</em></h1></div>
-            <a class="linkedin-link" id="linkedin-search" target="_blank" rel="noreferrer"><span>in</span> Search LinkedIn <span aria-hidden="true">↗</span></a>
+            <a class="linkedin-link" id="linkedin-search" href="#linkedin"><span>in</span> Search LinkedIn <span aria-hidden="true">↗</span></a>
           </div>
 
           <div class="stats" aria-label="Job feed summary">
@@ -66,6 +67,22 @@
           <div class="page-heading source-heading"><div><p class="eyebrow">YOUR WATCHLIST <span class="heading-rule"></span> 75 CAREER PAGES</p><h1>Go straight<br><em>to the source.</em></h1></div><p class="source-intro">Browse career pages from established tech teams and newer companies. Boards marked “Auto-scan” feed matching roles into the radar.</p></div>
           <div class="source-toolbar"><label class="searchbox"><span aria-hidden="true">⌕</span><input id="source-search" type="search" placeholder="Find a company" aria-label="Search company sources"></label><select id="source-segment" aria-label="Filter companies"><option value="">All companies</option><option value="large">Large companies</option><option value="startup">Startups</option></select><span class="source-total" id="source-total"></span></div>
           <div class="source-grid" id="source-grid"></div>
+        </section>
+
+        <section class="view" id="linkedin-view">
+          <div class="page-heading linkedin-heading">
+            <div><p class="eyebrow">LINKEDIN SEARCH <span class="heading-rule"></span> UNITED STATES</p><h1>Search the<br><em>live market.</em></h1></div>
+            <p class="source-intro">Open focused LinkedIn job searches for early-career AI, data, and software roles. Search results open on LinkedIn.</p>
+          </div>
+          <div class="linkedin-toolbar">
+            <label class="filter-field"><span>ROLE FAMILY</span><select id="linkedin-category"><option value="">All six role types</option></select></label>
+            <label class="filter-field"><span>POSTED</span><select id="linkedin-age"><option value="24">Past 24 hours</option><option value="168">Past week</option><option value="720">Past month</option><option value="0">Any time</option></select></label>
+            <label class="filter-field"><span>EXPERIENCE LEVEL</span><select id="linkedin-experience"><option value="1,2">Internship + entry level</option><option value="2">Entry level</option><option value="2,3">Entry + associate</option><option value="">Any level</option></select></label>
+            <span class="us-filter"><span aria-hidden="true">◎</span> United States</span>
+          </div>
+          <div class="results-heading"><div><h2>LinkedIn searches</h2><span id="linkedin-result-count">6 searches</span></div><span class="results-note">Live results <span aria-hidden="true">↗</span></span></div>
+          <div class="linkedin-list" id="linkedin-list"></div>
+          <p class="disclaimer">LinkedIn’s experience filters are broad seniority levels, not an exact years-of-experience check. Verify each listing’s requirements on LinkedIn.</p>
         </section>
         <footer class="footer"><span>JOB RADAR <span class="footer-sep">/</span> OPEN ROLE DISCOVERY</span><span>Listings link to the original employer posting.</span></footer>
       </main>
