@@ -47,6 +47,7 @@ class CollectorTests(unittest.TestCase):
     def test_classifies_requested_role_families(self):
         self.assertEqual(category_for("Machine Learning Engineer"), "AI / ML Engineer")
         self.assertEqual(category_for("Data Engineer, Platform"), "Data Engineering")
+        self.assertEqual(category_for("Software Developer, New Grad"), "Software Developer")
         self.assertIsNone(category_for("Product Manager"))
 
     def test_parses_timestamp_formats(self):

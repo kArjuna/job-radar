@@ -5,11 +5,14 @@ A GitHub Pages job dashboard for recent AI/ML, data, and software roles. It scan
 ## Deploy
 
 1. Push this repository to GitHub.
-2. In **Settings → Pages**, set the build and deployment source to **GitHub Actions**.
-3. Open **Actions → Refresh jobs and deploy → Run workflow** for the first scan. The scheduled scan then runs daily at 11:17 UTC.
-4. Open the Pages URL shown in **Settings → Pages**. The **Refresh jobs** button opens the workflow so you can start another scan; GitHub requires you to be signed in and confirm the run.
+2. In **Settings → Pages**, set the build and deployment source to **GitHub Actions** and set the custom domain to `www.job-radar.com`.
+3. At your DNS provider, create a `CNAME` record for `www` pointing to `karjuna.github.io`. Enable **Enforce HTTPS** in Pages after DNS is verified.
+4. Open **Actions → Refresh jobs and deploy → Run workflow** for the first scan. The scheduled scan then runs daily at 11:17 UTC.
+5. Open [www.job-radar.com](https://www.job-radar.com). The **Refresh jobs** button opens the workflow so you can start another scan; GitHub requires you to be signed in and confirm the run.
 
 The workflow scans configured Greenhouse boards and deploys the dashboard plus its current job snapshot. To add or change tracked career pages, edit [`sources.json`](sources.json). Entries with a verified `provider` and `board` are automatically scanned; other entries are direct career-page links. Greenhouse, Lever, and Ashby public board adapters are supported.
+
+The dashboard loads the latest published snapshot when opened, bypassing the browser cache, and groups listings by role family. It defaults to jobs posted within the last 24 hours. The public boards are scanned once daily by GitHub Actions at 11:17 UTC, so new listings appear after that day's scan and deployment; this is not a live per-visit scan.
 
 ## Matching rules
 

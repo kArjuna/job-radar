@@ -37,14 +37,21 @@ function renderJobs() {
   });
   document.querySelector("#result-count").textContent = `${filtered.length} ${filtered.length === 1 ? "role" : "roles"}`;
   document.querySelector("#empty-state").hidden = filtered.length > 0;
-  jobList.innerHTML = filtered.map((job, index) => `
-    <article class="job-card" style="animation-delay:${Math.min(index, 8) * 25}ms">
-      <div class="job-card-main"><h3 class="job-title">${escapeHTML(job.title)}</h3><div class="company-name">${escapeHTML(job.company)}</div><div class="job-place">${escapeHTML(job.location || "Location not listed")}</div></div>
-      <div class="job-card-category"><span class="job-category">${escapeHTML(job.category)}</span></div>
-      <div class="job-skills">${(job.skills || []).slice(0, 5).map((skill) => `<span class="skill">${escapeHTML(skill)}</span>`).join("") || '<span class="skill">See description</span>'}</div>
-      <div class="job-meta"><span class="posted">${escapeHTML(relativeDate(job.posted_at))}</span><span class="posted">${escapeHTML(job.experience)}</span><span class="sponsor ${job.sponsorship === "No" ? "no" : ""}">${job.sponsorship === "Yes" ? "Visa support noted" : job.sponsorship === "No" ? "No sponsorship" : "Visa: unspecified"}</span></div>
-      <a class="job-open" href="${escapeHTML(job.url)}" target="_blank" rel="noreferrer" aria-label="Open ${escapeHTML(job.title)} at ${escapeHTML(job.company)}">↗</a>
-    </article>`).join("");
+  jobList.innerHTML = categories.map((role) => {
+    const roleJobs = filtered.filter((job) => job.category === role);
+    if (!roleJobs.length) return "";
+    return `<section class="role-group" aria-label="${escapeHTML(role)}">
+      <div class="role-group-heading"><h3>${escapeHTML(role)}</h3><span>${roleJobs.length} ${roleJobs.length === 1 ? "opening" : "openings"}</span></div>
+      ${roleJobs.map((job, index) => `
+        <article class="job-card" style="animation-delay:${Math.min(index, 8) * 25}ms">
+          <div class="job-card-main"><h3 class="job-title">${escapeHTML(job.title)}</h3><div class="company-name">${escapeHTML(job.company)}</div><div class="job-place">${escapeHTML(job.location || "Location not listed")}</div></div>
+          <div class="job-card-category"><span class="job-category">${escapeHTML(job.category)}</span></div>
+          <div class="job-skills">${(job.skills || []).slice(0, 5).map((skill) => `<span class="skill">${escapeHTML(skill)}</span>`).join("") || '<span class="skill">See description</span>'}</div>
+          <div class="job-meta"><span class="posted">${escapeHTML(relativeDate(job.posted_at))}</span><span class="posted">${escapeHTML(job.experience)}</span><span class="sponsor ${job.sponsorship === "No" ? "no" : ""}">${job.sponsorship === "Yes" ? "Visa support noted" : job.sponsorship === "No" ? "No sponsorship" : "Visa: unspecified"}</span></div>
+          <a class="job-open" href="${escapeHTML(job.url)}" target="_blank" rel="noreferrer" aria-label="Open ${escapeHTML(job.title)} at ${escapeHTML(job.company)}">↗</a>
+        </article>`).join("")}
+    </section>`;
+  }).join("");
 }
 
 function renderSources() {
@@ -91,11 +98,12 @@ function showView(viewName) {
 async function start() {
   document.querySelector("#category-filter").insertAdjacentHTML("beforeend", categories.map((category) => `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`).join(""));
   document.querySelector("#linkedin-category").insertAdjacentHTML("beforeend", categories.map((category) => `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`).join(""));
-  const owner = location.hostname.split(".")[0];
-  const repository = location.pathname.split("/").filter(Boolean)[0] || "";
-  document.querySelector("#refresh-button").href = `https://github.com/${owner}/${repository}/actions/workflows/deploy.yml`;
+  document.querySelector("#refresh-button").href = "https://github.com/kArjuna/job-radar/actions/workflows/deploy.yml";
 
-  const [jobResponse, sourceResponse] = await Promise.allSettled([fetch("data/jobs.json"), fetch("sources.json")]);
+  const [jobResponse, sourceResponse] = await Promise.allSettled([
+    fetch("data/jobs.json", { cache: "no-store" }),
+    fetch("sources.json", { cache: "no-store" }),
+  ]);
   if (jobResponse.status === "fulfilled" && jobResponse.value.ok) {
     const payload = await jobResponse.value.json();
     jobs = payload.jobs || [];

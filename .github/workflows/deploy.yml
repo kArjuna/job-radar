@@ -32,7 +32,7 @@ jobs:
       - name: Stage site files
         run: |
           mkdir -p _site/data
-          cp index.html styles.css app.js sources.json _site/
+          cp CNAME index.html styles.css app.js sources.json _site/
           cp data/jobs.json _site/data/jobs.json
 
       - name: Configure GitHub Pages

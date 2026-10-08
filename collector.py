@@ -16,6 +16,7 @@ TITLE_TERMS = {
     "Data Engineering": ("data engineer", "analytics engineer", "data platform"),
     "Data Analyst": ("data analyst", "business intelligence", "analytics analyst"),
     "Data Scientist": ("data scientist", "applied scientist"),
+    "Software Developer": ("software developer", "application developer", "web developer"),
     "Software Engineer": ("software engineer", "backend engineer"),
 }
 SKILLS = (
