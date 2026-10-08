@@ -49,6 +49,32 @@
             <div class="stat"><span class="stat-label">SPONSORSHIP</span><strong id="stat-sponsorship">—</strong><span class="stat-note">roles that mention visa support</span></div>
           </div>
 
+          <div class="dashboard-panels" aria-label="Dashboard panels">
+            <section class="panel role-breakdown-panel">
+              <div class="panel-header">
+                <span class="panel-kicker">ROLE MIX</span>
+                <span class="panel-legend">jobs by function</span>
+              </div>
+              <div id="role-breakdown" class="mini-bars"></div>
+            </section>
+
+            <section class="panel skill-panel">
+              <div class="panel-header">
+                <span class="panel-kicker">SKILL STACK</span>
+                <span class="panel-legend">top signals</span>
+              </div>
+              <div id="skill-breakdown" class="tag-cloud"></div>
+            </section>
+
+            <section class="panel company-panel">
+              <div class="panel-header">
+                <span class="panel-kicker">TOP EMPLOYERS</span>
+                <span class="panel-legend">active companies</span>
+              </div>
+              <div id="company-breakdown" class="company-list"></div>
+            </section>
+          </div>
+
           <div class="toolbar">
             <label class="searchbox"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Role, company, or skill" aria-label="Search jobs"></label>
             <select id="category-filter" aria-label="Filter by role"><option value="">All role types</option></select>

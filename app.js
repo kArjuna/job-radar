@@ -23,6 +23,46 @@ function relativeDate(value) {
   return `${days}d ago`;
 }
 
+function buildDashboardPanels(filteredJobs) {
+  const roleCounts = categories.map((category) => ({
+    name: category,
+    count: filteredJobs.filter((job) => job.category === category).length,
+  }));
+
+  const skillMap = new Map();
+  filteredJobs.forEach((job) => (job.skills || []).forEach((skill) => {
+    skillMap.set(skill, (skillMap.get(skill) || 0) + 1);
+  }));
+  const topSkills = [...skillMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6);
+
+  const companyMap = new Map();
+  filteredJobs.forEach((job) => {
+    companyMap.set(job.company, (companyMap.get(job.company) || 0) + 1);
+  });
+  const topCompanies = [...companyMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 4);
+
+  const roleBreakdown = document.querySelector("#role-breakdown");
+  const maxCount = Math.max(1, ...roleCounts.map((item) => item.count));
+  roleBreakdown.innerHTML = roleCounts.map((item) => `
+    <div class="mini-bar-row">
+      <span>${escapeHTML(item.name)}</span>
+      <div class="mini-track"><i style="width:${(item.count / maxCount) * 100}%"></i></div>
+      <strong>${item.count}</strong>
+    </div>
+  `).join("");
+
+  document.querySelector("#skill-breakdown").innerHTML = topSkills.map(([skill, count]) => `
+    <span class="tag-pill">${escapeHTML(skill)} <em>${count}</em></span>
+  `).join("") || '<span class="empty-tag">No skills mapped yet</span>';
+
+  document.querySelector("#company-breakdown").innerHTML = topCompanies.map(([company, count]) => `
+    <div class="company-row">
+      <span>${escapeHTML(company)}</span>
+      <strong>${count}</strong>
+    </div>
+  `).join("") || '<div class="empty-tag">No companies yet</div>';
+}
+
 function renderJobs() {
   const query = document.querySelector("#search-input").value.trim().toLowerCase();
   const category = document.querySelector("#category-filter").value;
@@ -37,6 +77,7 @@ function renderJobs() {
   });
   document.querySelector("#result-count").textContent = `${filtered.length} ${filtered.length === 1 ? "role" : "roles"}`;
   document.querySelector("#empty-state").hidden = filtered.length > 0;
+  buildDashboardPanels(filtered);
   jobList.innerHTML = categories.map((role) => {
     const roleJobs = filtered.filter((job) => job.category === role);
     if (!roleJobs.length) return "";
