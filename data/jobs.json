@@ -1,0 +1,46 @@
+{
+  "updated_at": "2026-10-08T20:29:14.302125+00:00",
+  "jobs": [
+    {
+      "id": "Stripe:8212508:None",
+      "title": "Software Engineer, Early Career \u2014 Immediate Start",
+      "company": "Stripe",
+      "segment": "large",
+      "category": "Software Engineer",
+      "location": "San Francisco, Seattle, New York",
+      "posted_at": "2026-10-07T23:02:27+00:00",
+      "url": "https://stripe.com/jobs/search?gh_jid=8212508",
+      "skills": [
+        "Java",
+        "JavaScript",
+        "Go"
+      ],
+      "experience": "Entry level (inferred)",
+      "sponsorship": "Unspecified",
+      "description": "<h2><strong>This role is for applicants actively looking to start before December 1, 2026.</strong></h2> <h2><strong>Who we are</strong></h2> <h3><strong>About Stripe</strong></h3> <p>Stripe is a technology company focused on improving the conditions for economic growth and prosperity. We build programmable financial infrastructure, rethinking from first principles how financial services should work, to make it easier and cheaper for any business to start and scale. More than 10 million <a href=\"https://stripe.com/customers\">businesses</a> build on Stripe, spanning the economic frontier\u2014from solo founders to established enterprises\u2014united by a practical focus on growth. The most ambitious companies in the world use Stripe as core infrastructure to grow faster. They process trillions of dollars a year on Stripe, equivalent to around 1.6% of global GDP. While economic growth makes everyone better off, open markets also enable greater variety. When any business can easily serve a global c",
+      "source_url": "https://stripe.com/jobs",
+      "provider": "greenhouse"
+    },
+    {
+      "id": "Stripe:8128744:None",
+      "title": "Software Engineer, New Grad",
+      "company": "Stripe",
+      "segment": "large",
+      "category": "Software Engineer",
+      "location": "San Francisco, Seattle, New York",
+      "posted_at": "2026-10-07T23:02:27+00:00",
+      "url": "https://stripe.com/jobs/search?gh_jid=8128744",
+      "skills": [
+        "Java",
+        "JavaScript",
+        "Go"
+      ],
+      "experience": "Entry level (inferred)",
+      "sponsorship": "Unspecified",
+      "description": "<h2><strong>Who we are</strong></h2> <h3><strong>About Stripe</strong></h3> <p>Stripe is a technology company focused on improving the conditions for economic growth and prosperity. We build programmable financial infrastructure, rethinking from first principles how financial services should work, to make it easier and cheaper for any business to start and scale. More than 10 million <a href=\"https://stripe.com/customers\">businesses</a> build on Stripe, spanning the economic frontier\u2014from solo founders to established enterprises\u2014united by a practical focus on growth. The most ambitious companies in the world use Stripe as core infrastructure to grow faster. They process trillions of dollars a year on Stripe, equivalent to around 1.6% of global GDP. While economic growth makes everyone better off, open markets also enable greater variety. When any business can easily serve a global customer base, the quality and diversity of products in the world increase, and craft and creativity are u",
+      "source_url": "https://stripe.com/jobs",
+      "provider": "greenhouse"
+    }
+  ],
+  "source_errors": []
+}
