@@ -63,6 +63,15 @@ function buildDashboardPanels(filteredJobs) {
   `).join("") || '<div class="empty-tag">No companies yet</div>';
 }
 
+function updateStats() {
+  const today = jobs.filter((job) => Date.now() - new Date(job.posted_at).getTime() <= 86400000).length;
+  document.querySelector("#stat-total").textContent = jobs.length;
+  document.querySelector("#stat-today").textContent = today;
+  document.querySelector("#stat-sources").textContent = companies.filter((company) => company.provider).length;
+  document.querySelector("#stat-sponsorship").textContent = jobs.filter((job) => job.sponsorship === "Yes").length;
+  document.querySelector("#nav-job-count").textContent = jobs.length;
+}
+
 function renderJobs() {
   const query = document.querySelector("#search-input").value.trim().toLowerCase();
   const category = document.querySelector("#category-filter").value;
@@ -136,13 +145,36 @@ function showView(viewName) {
   location.hash = viewName;
 }
 
+async function refreshJobs() {
+  const button = document.querySelector("#refresh-button");
+  button.disabled = true;
+  button.innerHTML = '<span aria-hidden="true">↻</span> Refreshing…';
+
+  try {
+    const response = await fetch(`data/jobs.json?ts=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error("Unable to load the newest jobs snapshot.");
+    const payload = await response.json();
+    jobs = payload.jobs || [];
+    if (payload.updated_at) {
+      document.querySelector("#updated-label").textContent = `Scanned ${relativeDate(payload.updated_at)}`;
+    }
+    updateStats();
+    renderJobs();
+  } catch (error) {
+    document.querySelector("#updated-label").textContent = "Refresh failed";
+    console.error(error);
+  } finally {
+    button.disabled = false;
+    button.innerHTML = '<span aria-hidden="true">↻</span> Refresh jobs';
+  }
+}
+
 async function start() {
   document.querySelector("#category-filter").insertAdjacentHTML("beforeend", categories.map((category) => `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`).join(""));
   document.querySelector("#linkedin-category").insertAdjacentHTML("beforeend", categories.map((category) => `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`).join(""));
-  document.querySelector("#refresh-button").href = "https://github.com/kArjuna/job-radar/actions/workflows/deploy.yml";
 
   const [jobResponse, sourceResponse] = await Promise.allSettled([
-    fetch("data/jobs.json", { cache: "no-store" }),
+    fetch(`data/jobs.json?ts=${Date.now()}`, { cache: "no-store" }),
     fetch("sources.json", { cache: "no-store" }),
   ]);
   if (jobResponse.status === "fulfilled" && jobResponse.value.ok) {
@@ -153,12 +185,7 @@ async function start() {
     document.querySelector("#updated-label").textContent = "Job feed not available";
   }
   if (sourceResponse.status === "fulfilled" && sourceResponse.value.ok) companies = (await sourceResponse.value.json()).companies || [];
-  const today = jobs.filter((job) => Date.now() - new Date(job.posted_at).getTime() <= 86400000).length;
-  document.querySelector("#stat-total").textContent = jobs.length;
-  document.querySelector("#stat-today").textContent = today;
-  document.querySelector("#stat-sources").textContent = companies.filter((company) => company.provider).length;
-  document.querySelector("#stat-sponsorship").textContent = jobs.filter((job) => job.sponsorship === "Yes").length;
-  document.querySelector("#nav-job-count").textContent = jobs.length;
+  updateStats();
   renderJobs();
   renderSources();
   renderLinkedInSearches();
@@ -166,6 +193,7 @@ async function start() {
 }
 
 document.querySelectorAll(".nav-item").forEach((button) => button.addEventListener("click", () => showView(button.dataset.view)));
+document.querySelector("#refresh-button").addEventListener("click", refreshJobs);
 document.querySelector("#linkedin-search").addEventListener("click", (event) => {
   event.preventDefault();
   showView("linkedin");
