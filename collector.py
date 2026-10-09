@@ -10,7 +10,7 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).parent
 SOURCES_PATH = ROOT / "sources.json"
 OUTPUT_PATH = ROOT / "data" / "jobs.json"
-MAX_AGE = {"large": timedelta(days=2), "startup": timedelta(days=2)}
+MAX_AGE = {"large": timedelta(days=2), "medium": timedelta(days=2), "startup": timedelta(days=2)}
 TITLE_TERMS = {
     "AI / ML Engineer": ("machine learning", "ml engineer", "ai engineer", "artificial intelligence", "deep learning", "research engineer"),
     "Data Engineering": ("data engineer", "analytics engineer", "data platform"),

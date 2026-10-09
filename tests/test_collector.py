@@ -44,6 +44,19 @@ class CollectorTests(unittest.TestCase):
             "title": "Software Engineer", "updated_at": self.now.isoformat(), "content": ""
         }, self.now))
 
+    def test_accepts_medium_company_role_when_recent_and_junior(self):
+        medium_company = {**self.company, "segment": "medium"}
+        job = normalize_listing(medium_company, {
+            "title": "Data Engineer, New Grad",
+            "updated_at": (self.now - timedelta(hours=8)).isoformat(),
+            "absolute_url": "https://example.com/job/medium",
+            "location": "Austin, TX",
+            "content": "SQL, Python, and cloud data tools. 0-2 years of experience. Sponsorship available.",
+        }, self.now)
+        self.assertIsNotNone(job)
+        self.assertEqual(job["segment"], "medium")
+        self.assertIn("Python", job["skills"])
+
     def test_classifies_requested_role_families(self):
         self.assertEqual(category_for("Machine Learning Engineer"), "AI / ML Engineer")
         self.assertEqual(category_for("Data Engineer, Platform"), "Data Engineering")
