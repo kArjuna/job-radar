@@ -50,11 +50,6 @@
     {"name":"Walmart Global Tech","segment":"large","careers_url":"https://careers.walmart.com/technology"},
     {"name":"Intuit","segment":"large","careers_url":"https://careers.intuit.com/"},
     {"name":"PayPal","segment":"large","careers_url":"https://careers.pypl.com/"},
-    {"name":"LaunchDarkly","segment":"medium","careers_url":"https://www.launchdarkly.com/careers/","provider":"greenhouse","board":"launchdarkly"},
-    {"name":"Vanta","segment":"medium","careers_url":"https://www.vanta.com/careers","provider":"greenhouse","board":"vanta"},
-    {"name":"Pinecone","segment":"medium","careers_url":"https://www.pinecone.io/careers/"},
-    {"name":"HashiCorp","segment":"medium","careers_url":"https://www.hashicorp.com/jobs","provider":"greenhouse","board":"hashicorp"},
-    {"name":"Ramp","segment":"medium","careers_url":"https://ramp.com/careers","provider":"greenhouse","board":"ramp"},
     {"name":"Anthropic","segment":"startup","careers_url":"https://www.anthropic.com/careers","provider":"greenhouse","board":"anthropic"},
     {"name":"Perplexity","segment":"startup","careers_url":"https://www.perplexity.ai/careers"},
     {"name":"Mistral AI","segment":"startup","careers_url":"https://mistral.ai/careers/"},
@@ -79,6 +74,16 @@
     {"name":"Cursor","segment":"startup","careers_url":"https://www.cursor.com/careers"},
     {"name":"Cognition","segment":"startup","careers_url":"https://www.cognition.ai/careers"},
     {"name":"Writer","segment":"startup","careers_url":"https://writer.com/company/careers/"},
-    {"name":"Webflow","segment":"startup","careers_url":"https://webflow.com/careers"}
+    {"name":"Webflow","segment":"startup","careers_url":"https://webflow.com/careers"},
+    {"name":"Fivetran","segment":"medium","careers_url":"https://www.fivetran.com/careers"},
+    {"name":"Confluent","segment":"medium","careers_url":"https://www.confluent.io/careers/"},
+    {"name":"HashiCorp","segment":"medium","careers_url":"https://www.hashicorp.com/careers"},
+    {"name":"Sentry","segment":"medium","careers_url":"https://sentry.io/careers/"},
+    {"name":"PagerDuty","segment":"medium","careers_url":"https://careers.pagerduty.com/"},
+    {"name":"Zscaler","segment":"medium","careers_url":"https://www.zscaler.com/careers"},
+    {"name":"CloudBees","segment":"medium","careers_url":"https://www.cloudbees.com/careers"},
+    {"name":"AppLovin","segment":"medium","careers_url":"https://www.applovin.com/careers/"},
+    {"name":"Dataminr","segment":"medium","careers_url":"https://www.dataminr.com/careers/"},
+    {"name":"C3 AI","segment":"medium","careers_url":"https://c3.ai/careers/"}
   ]
 }

@@ -110,7 +110,7 @@ function renderSources() {
   const filtered = companies.filter((company) => (!query || company.name.toLowerCase().includes(query)) && (!segment || company.segment === segment));
   document.querySelector("#source-total").textContent = `${filtered.length} companies`;
   sourceGrid.innerHTML = filtered.map((company) => `<a class="source-card" href="${escapeHTML(company.careers_url)}" target="_blank" rel="noreferrer">
-    <div class="source-card-top"><h3>${escapeHTML(company.name)}</h3><span class="source-segment">${company.segment === "startup" ? "STARTUP" : company.segment === "medium" ? "MEDIUM" : "ESTABLISHED"}</span></div>
+    <div class="source-card-top"><h3>${escapeHTML(company.name)}</h3><span class="source-segment">${company.segment === "startup" ? "STARTUP" : company.segment === "medium" ? "MID-SIZE" : "ESTABLISHED"}</span></div>
     <div class="source-card-bottom"><span class="${company.provider ? "source-scan" : "source-manual"}">${company.provider ? "● AUTO-SCAN" : "CAREER PAGE"}</span><span class="source-arrow">↗</span></div>
   </a>`).join("");
 }

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T00:14:49.993526+00:00",
+  "updated_at": "2026-10-09T00:27:47.718973+00:00",
   "jobs": [
     {
       "id": "Stripe:8212508:None",
@@ -42,18 +42,5 @@
       "provider": "greenhouse"
     }
   ],
-  "source_errors": [
-    {
-      "company": "Vanta",
-      "error": "HTTP Error 404: Not Found"
-    },
-    {
-      "company": "HashiCorp",
-      "error": "HTTP Error 404: Not Found"
-    },
-    {
-      "company": "Ramp",
-      "error": "HTTP Error 404: Not Found"
-    }
-  ]
+  "source_errors": []
 }
